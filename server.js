@@ -126,6 +126,37 @@ function my_database(filename) {
 	return db;
 }
 
+	//Update DB 
+	app.patch("https://wt.ops.labs.vu.nl/api21/807c5ce9", (req, res, next) => {
+		var data = {
+			product: req.body.product,
+			origin: req.body.origin,
+			best_before_data: req.body.best_before_data,
+			amount: req.body.amount,
+			image: req.body.image,
+		}
+	db.run(
+        `UPDATE user set 
+           product = COALESCE(?,product), 
+           origin = COALESCE(?,origin), 
+		   best_before_date = COALESCE(?,best_before_data),
+		   amount = COALESCE(?,amount),
+		   image = COALESCE(?,image),
+           WHERE id = ?`,
+        [data.product, data.origin, data.best_before_date, data.amount,data.image,req.params.id],
+        function (err, result) {
+            if (err){
+                res.status(400).json({"error": res.message})
+                return;
+            }
+            res.json({
+                message: "success",
+                data: data,
+                changes: this.changes
+            })
+    });
+})
+
 // Delete row by id function
 /*db.run(`DELETE FROM langs WHERE rowid=?`, id, function (err) {
 	if (err) {
