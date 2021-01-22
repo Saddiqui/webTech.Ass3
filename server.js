@@ -85,7 +85,15 @@ app.post('/post-example', function(req, res) {
 	return res.json(req.body);
 });
 
-
+app.delete('/delete-example'), function(err){
+if (err){
+	res.status(404).send(err);
+	return header('HTTP/1.1 404 not found');
+}
+else app.get(db.all('DELETE FROM products WHERE id=?', [1], function(res,req){
+		return res.json(req.body);
+}));
+};
 // ###############################################################################
 // This should start the server, after the routes have been defined, at port 3000:
 
@@ -103,33 +111,27 @@ function my_database(filename) {
   		console.log('Connected to the products database.');
 	});
 	// Create our products table if it does not exist already:
-	db.serialize(() => {
-		db.run(`
-        	CREATE TABLE IF NOT EXISTS products
-        	(id 	  INTEGER PRIMARY KEY,
-        	product	CHAR(100) NOT NULL,
-        	origin 	CHAR(100) NOT NULL,
-        	best_before_date 	CHAR(20) NOT NULL,
-          amount  CHAR(20) NOT NULL,
-        	image   CHAR(254) NOT NULL
-        	)`);
-		db.all(`select count(*) as count from products`, function(err, result) {
-			if (result[0].count == 0) {
-				db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
-				["Apples", "The Netherlands", "November 2019", "100kg", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Apples.jpg/512px-Apples.jpg"]);
-				console.log('Inserted dummy Apples entry into empty product database');
-			} else {
-				console.log("Database already contains", result[0].count, " item(s) at startup.");
-			}
-		});
-	});
+	// db.serialize(() => {
+	// 	db.run(`
+    //     	CREATE TABLE IF NOT EXISTS products
+    //     	(id 	  INTEGER PRIMARY KEY,
+    //     	product	CHAR(100) NOT NULL,
+    //     	origin 	CHAR(100) NOT NULL,
+    //     	best_before_date 	CHAR(20) NOT NULL,
+    //       amount  CHAR(20) NOT NULL,
+    //     	image   CHAR(254) NOT NULL
+    //     	)`);
+	// 	db.all(`select count(*) as count from products`, function(err, result) {
+	// 		if (result[0].count == 0) {
+	// 			db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
+	// 			["Apples", "The Netherlands", "November 2019", "100kg", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Apples.jpg/512px-Apples.jpg"]);
+	// 			console.log('Inserted dummy Apples entry into empty product database');
+	// 		} else {
+	// 			console.log("Database already contains", result[0].count, " item(s) at startup.");
+	// 		}
+	// 	});
+	// });
 	return db;
 }
 
-// Delete row by id function
-/*db.run(`DELETE FROM langs WHERE rowid=?`, id, function (err) {
-	if (err) {
-		return console.error(err.message);
-	}
-	console.log(`Row(s) deleted ${this.changes}`);
-});*/
+
