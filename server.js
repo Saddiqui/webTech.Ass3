@@ -127,11 +127,11 @@ function my_database(filename) {
 }
 
 	//Update DB 
-	app.patch("https://wt.ops.labs.vu.nl/api21/807c5ce9", (req, res, next) => {
+	app.patch("/update-example", (req, res, next) => {
 		var data = {
 			product: req.body.product,
 			origin: req.body.origin,
-			best_before_data: req.body.best_before_data,
+			best_before_date: req.body.best_before_date,
 			amount: req.body.amount,
 			image: req.body.image,
 		}
@@ -139,7 +139,7 @@ function my_database(filename) {
         `UPDATE user set 
            product = COALESCE(?,product), 
            origin = COALESCE(?,origin), 
-		   best_before_date = COALESCE(?,best_before_data),
+		   best_before_date = COALESCE(?,best_before_date),
 		   amount = COALESCE(?,amount),
 		   image = COALESCE(?,image),
            WHERE id = ?`,
