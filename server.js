@@ -85,15 +85,6 @@ app.post('/post-example', function(req, res) {
 	return res.json(req.body);
 });
 
-app.delete('/delete-example'), function(err){
-if (err){
-	res.status(404).send(err);
-	return header('HTTP/1.1 404 not found');
-}
-else app.get(db.all('DELETE FROM products WHERE id=?', [1], function(res,req){
-		return res.json(req.body);
-}));
-};
 // ###############################################################################
 // This should start the server, after the routes have been defined, at port 3000:
 
@@ -110,28 +101,74 @@ function my_database(filename) {
   		}
   		console.log('Connected to the products database.');
 	});
-	// Create our products table if it does not exist already:
-	// db.serialize(() => {
-	// 	db.run(`
-    //     	CREATE TABLE IF NOT EXISTS products
-    //     	(id 	  INTEGER PRIMARY KEY,
-    //     	product	CHAR(100) NOT NULL,
-    //     	origin 	CHAR(100) NOT NULL,
-    //     	best_before_date 	CHAR(20) NOT NULL,
-    //       amount  CHAR(20) NOT NULL,
-    //     	image   CHAR(254) NOT NULL
-    //     	)`);
-	// 	db.all(`select count(*) as count from products`, function(err, result) {
-	// 		if (result[0].count == 0) {
-	// 			db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
-	// 			["Apples", "The Netherlands", "November 2019", "100kg", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Apples.jpg/512px-Apples.jpg"]);
-	// 			console.log('Inserted dummy Apples entry into empty product database');
-	// 		} else {
-	// 			console.log("Database already contains", result[0].count, " item(s) at startup.");
-	// 		}
-	// 	});
-	// });
+	//Create our products table if it does not exist already:
+	db.serialize(() => {
+		db.run(`
+        	CREATE TABLE IF NOT EXISTS products
+        	(id 	  INTEGER PRIMARY KEY,
+        	product	CHAR(100) NOT NULL,
+        	origin 	CHAR(100) NOT NULL,
+        	best_before_date 	CHAR(20) NOT NULL,
+          amount  CHAR(20) NOT NULL,
+        	image   CHAR(254) NOT NULL
+        	)`);
+		db.all(`select count(*) as count from products`, function(err, result) {
+			if (result[0].count == 1) {
+				db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
+				["Apples", "The Netherlands", "November 2019", "100kg", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Apples.jpg/512px-Apples.jpg"]);
+				console.log('Inserted dummy Apples entry into empty product database');
+				} 
+			if (err){
+				res.status(404).send(err);
+				return header('HTTP/1.1 404 not found');
+			}
+			else {
+				console.log("Database already contains", result[0].count, " item(s) at startup.");
+			}
+		});
+	});
 	return db;
 }
+//delete DB row
+// app.delete('/delete-example'), function (err) {
+// 	app.get(db.all('DELETE FROM products WHERE id=?', [2], function (res, req) {
+// 		return res.json(req.body);
+// 	}));
+// 	if (err) {
+// 		res.status(404).send(err);
+// 		return header('HTTP/1.1 404 not found');
+// 	}
+// };
+	
+//Update DB 
+	app.patch("/update-example/:id", (req, res, next) => {
+		var data = {
+			product: req.body.product,
+			origin: req.body.origin,
+			best_before_date: req.body.best_before_date,
+			amount: req.body.amount,
+			image: req.body.image,
+		}
+	db.run(
+        `UPDATE user set 
+           product = COALESCE(?,product), 
+           origin = COALESCE(?,origin), 
+		   best_before_date = COALESCE(?,best_before_date),
+		   amount = COALESCE(?,amount),
+		   image = COALESCE(?,image),
+           WHERE id = ?`,
+        [data.product, data.origin, data.best_before_date, data.amount,data.image,req.params.id],
+        (err, result)=> {
+            if (err){
+                res.status(400).json({"error": res.message})
+                return;
+            }
+            res.json({
+                message: "success",
+                data: data,
+            })
+    });
+})
+
 
 
