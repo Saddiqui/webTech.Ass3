@@ -37,7 +37,27 @@ app.use(bodyParser.json());
 
 // ###############################################################################
 // Routes
+//
+// TODO: Add your routes here and remove the example routes once you know how
+//       everything works.
 // ###############################################################################
+
+// This example route responds to http://localhost:3000/hello with an example JSON object.
+// Please test if this works on your own device before you make any changes.
+
+// app.get("/hello", function(req, res) {
+//     response_body = {'Hello': 'World'} ;
+
+//     // This example returns valid JSON in the response, but does not yet set the
+//     // associated HTTP response header.  This you should do yourself in your
+//     // own routes!
+//     res.json(response_body) ;
+// });
+
+
+
+// ###############################################################################
+// Some helper functions called above
 function my_database(filename) {
 	// Conncect to db by opening filename, create filename if it does not exist:
 	var db = new sqlite.Database(filename, (err) => {
@@ -70,8 +90,8 @@ function my_database(filename) {
 	return db;
 }
 
-
-	// database and return it as JSON object.
+// This route responds to http://localhost:3000/db-example by selecting some data from the
+// database and return it as JSON object.
 app.get("/products", function(req, res) {
 	// Example SQL statement to select the name of all products from a specific brand
 	// TODO: add code that checks for errors so you know what went wrong if anything went wrong
@@ -153,5 +173,3 @@ app.delete("/products/:id", (req, res, next) => {
 // This should start the server, after the routes have been defined, at port 3000:
 
 app.listen(3000);
-
-
