@@ -70,7 +70,10 @@ app.use(bodyParser.json());
 app.get('/db-example', function(req, res) {
     // Example SQL statement to select the name of all products from a specific brand
     db.all(`SELECT * FROM products WHERE product=?`, ['Apples'], function(err, rows) {
-
+		if (err) {
+		res.status(404).send(err);
+		return header('HTTP/1.1 404 not found');
+		}
     	// TODO: add code that checks for errors so you know what went wrong if anything went wrong
     	// TODO: set the appropriate HTTP response headers and HTTP response codes here.
 
