@@ -1,0 +1,26 @@
+{
+  "name": "webtech.ass3",
+  "version": "1.0.0",
+  "description": "Assignment 3",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saddiqui/webTech.Ass3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Saddiqui/webTech.Ass3/issues"
+  },
+  "homepage": "https://github.com/Saddiqui/webTech.Ass3#readme"
+}

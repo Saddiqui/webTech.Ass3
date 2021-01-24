@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Lab Group 47 - RESTful API Documentation</title>
+    </head>
+    <body>
+        <h1>Lab Group 47 - RESTful API Documentation</h1>
+        <h2 id="documentation">REST API Documentation</h2>
+        <p>The  REST API responds to GET POST, PUT, and DELETE methods which live at the "/products" endpoint. Web API uses appropriate HTTP verbs for each action:</p>
+        <table>
+            <thead>
+                <tr>
+                <th>Method</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>GET</td>
+                <td>Retrieves resources</td>
+                </tr>
+                <tr>
+                <td>POST</td>
+                <td>Creates resources</td>
+                </tr>
+                <tr>
+                <td>PUT</td>
+                <td>Changes and/or replaces resources or collections</td>
+                </tr>
+                <tr>
+                <td>DELETE</td>
+                <td>Deletes resources</td>
+                </tr>
+            </tbody>
+            </table>
+        <h4><p> The database consists of the following properties:</p></h4>
+        <table>
+        <thead>
+            <tr>
+            <th>Property</th>
+            <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>id</td>
+            <td>The unique identifier by which to identify the product.</td>
+            </tr>
+            <tr>
+            <td>product</td>
+            <td>The name of the product, defined by the user.</td>
+            </tr>
+            <tr>
+            <td>origin</td>
+            <td>The description of the location of the product, defined by user.</td>
+            </tr>
+            <tr>
+            <td>best_before_date</td>
+            <td>The best before date given by the user.</td>
+            </tr>
+            <tr>
+            <td>amount</td>
+            <td>The amount given by user.</td>
+            </tr>
+            <tr>
+            <td>image</td>
+            <td>The URL to the specific image, given by the user.</td>
+            </tr>
+        </tbody>
+        </table>
+
+        <p>
+            <h2>CRUD</h2>
+            <h4>HTTP Methods and Response Codes</h4>
+            <dl>
+                <h4><dt>CREATE</dt></h4>
+                <dd>
+                    the Create function is called INSERT and the HTTP method we use to INSERT new data is POST. The response code for a success is 200 and for a failure is 400.
+                    <p><img src="post.jpeg" alt="visualization_get" style="width:500px;height:500px;"></p>
+                </dd>
+            </dl>
+            <dl>
+            <h4><dt>Read</dt></h4>
+                <dd>
+                    The read function is similar to a search function. It allows users to search and SELECT specific records in the table and read their values. The HTTP methode we use here is GET to SELECT all the data. The response code for a success is 200 and for a failure is 400.
+                    <p><img src="get.png" alt="visualization_get" style="width:550px;height:500px;"></p>
+                </dd>
+            </dl>
+            <dl>
+            <h4><dt>Update</dt></h4>
+                <dd>
+                    The update function is used to modify existing records that exist in the database. The HTTP method we use here is PUT to change existing records. The response code for a success is 200 and for a failure is 400.
+                    <p><img src="put.jpeg" alt="visualization_get" style="width:500px;height:500px;"></p>
+                </dd>
+            </dl>
+            <dl>
+            <h4><dt>Delete</dt></h4>
+                <dd>
+                    The delete function allows users to remove records from a database that is no longer needed. the HTTP method we use here is DELETE. The response code for a success is 200 and for a failure is 400.
+                    <p><img src="delete.jpeg" alt="visualization_get" style="width:500px;height:150px;"></p>
+                </dd>
+            </dl>
+
+        <h2 id="response-status-codes">Response Status Codes</h2>
+        <p>Web API uses the following response status codes, as defined in the <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a> and <a href="https://www.ietf.org/rfc/rfc6585.txt">RFC 6585</a>:</p>
+        <table>
+            <thead>
+              <tr>
+                <th>Status Code</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>200</td>
+                <td>OK - The request has succeeded. The client can read the result of the request in the body and the headers of the response.</td>
+              </tr>
+              <tr>
+                <td>400</td>
+                <td>Bad Request - The request could not be understood by the server due to malformed syntax. The message body will contain more information.</td>
+              </tr>
+              <tr>
+                <td>404</td>
+                <td>Not Found - The requested resource could not be found. This error can be due to a temporary or permanent condition.</td>
+              </tr>
+            </tbody>
+          </table>
+    </body>
+</html>
