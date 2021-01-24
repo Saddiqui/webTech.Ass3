@@ -180,14 +180,43 @@ function my_database(filename) {
 
 
 
+
+	//Now the server is up and running and the table is ready with some sample database.
+	//We query the table to get a particular product based on the product_id using get.
+	app.get("/db-example/:id", (req, res, next) => {
+		var params = [req.params.id]
+		db.get(`SELECT * FROM products where product_id = ?`, [req.params.id], (err, row) => {
+			if (err) {
+			  res.status(400).json({"error":err.message});
+			  return;
+			}
+			res.status(200).json(row);
+		  });
+	});
+
+	//Insert new products using post
+	app.post("/insert-example/", (req, res, next) => {
+		var reqBody = re.body;
+		db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
+			[reqBody.products, reqBody.origin, reqBody.best_before_date, reqBody.amount, reqBody.image],
+			function (err, result) {
+				if (err) {
+					res.status(400).json({ "error": err.message })
+					return;
+				}
+				res.status(201).json({
+					"product_id": this.lastID
+				})
+			});
+	});
 	//Update DB 
-	app.patch("/update-example", (req, res, next) => {
+	app.patch("/update-example/:id", (req, res, next) => {
 		var data = {
 			product: req.body.product,
 			origin: req.body.origin,
 			best_before_date: req.body.best_before_date,
 			amount: req.body.amount,
-			image: req.body.image,
+			image: req.body.image
 		}
 	db.run(
         `UPDATE user set 
@@ -198,7 +227,7 @@ function my_database(filename) {
 		   image = COALESCE(?,image),
            WHERE id = ?`,
         [data.product, data.origin, data.best_before_date, data.amount,data.image,req.params.id],
-        function (err, result) {
+        (err, result)=> {
             if (err){
                 res.status(400).json({"error": res.message})
                 return;
@@ -206,7 +235,6 @@ function my_database(filename) {
             res.json({
                 message: "success",
                 data: data,
-                changes: this.changes
             })
     });
 })
