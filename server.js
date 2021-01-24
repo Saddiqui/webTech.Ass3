@@ -45,7 +45,7 @@ function my_database(filename) {
   		}
   		console.log('Connected to the products database.');
 	});
-	// Create our products table if it does not exist already:
+	//Create our products table if it does not exist already:
 	db.serialize(() => {
 		db.run(`
         	CREATE TABLE IF NOT EXISTS products
@@ -57,17 +57,72 @@ function my_database(filename) {
         	image   CHAR(254) NOT NULL
         	)`);
 		db.all(`select count(*) as count from products`, function(err, result) {
-			if (result[0].count == 0) {
+			if (result[0].count == 1) {
 				db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
 				["Apples", "The Netherlands", "November 2019", "100kg", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Apples.jpg/512px-Apples.jpg"]);
 				console.log('Inserted dummy Apples entry into empty product database');
-			} else {
+				} 
+			if (err){
+				res.status(404).send(err);
+				return header('HTTP/1.1 404 not found');
+			}
+			else {
 				console.log("Database already contains", result[0].count, " item(s) at startup.");
 			}
 		});
 	});
 	return db;
 }
+//delete DB row
+// app.delete('/delete-example'), function (err) {
+// 	app.get(db.all('DELETE FROM products WHERE id=?', [2], function (res, req) {
+// 		return res.json(req.body);
+// 	}));
+// 	if (err) {
+// 		res.status(404).send(err);
+// 		return header('HTTP/1.1 404 not found');
+// 	}
+// };
+
+// Delete row by id function
+/*db.run(`DELETE FROM langs WHERE rowid=?`, id, function (err) {
+	if (err) {
+		return console.error(err.message);
+	}
+	console.log(`Row(s) deleted ${this.changes}`);
+});*/
+	
+//Update DB 
+	app.patch("/update-example/:id", (req, res, next) => {
+		var data = {
+			product: req.body.product,
+			origin: req.body.origin,
+			best_before_date: req.body.best_before_date,
+			amount: req.body.amount,
+			image: req.body.image,
+		}
+	db.run(
+        `UPDATE user set 
+           product = COALESCE(?,product), 
+           origin = COALESCE(?,origin), 
+		   best_before_date = COALESCE(?,best_before_date),
+		   amount = COALESCE(?,amount),
+		   image = COALESCE(?,image),
+           WHERE id = ?`,
+        [data.product, data.origin, data.best_before_date, data.amount,data.image,req.params.id],
+        (err, result)=> {
+            if (err){
+                res.status(400).json({"error": res.message})
+                return;
+            }
+            res.json({
+                message: "success",
+                data: data,
+            })
+    });
+})
+
+
 
 // This route responds to http://localhost:3000/db-example by selecting some data from the
 // database and return it as JSON object.
@@ -152,3 +207,4 @@ app.delete("/products/:id", (req, res, next) => {
 // This should start the server, after the routes have been defined, at port 3000:
 
 app.listen(3000);
+
