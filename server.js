@@ -36,28 +36,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // ###############################################################################
-// Routes
-//
-// TODO: Add your routes here and remove the example routes once you know how
-//       everything works.
-// ###############################################################################
 
-// This example route responds to http://localhost:3000/hello with an example JSON object.
-// Please test if this works on your own device before you make any changes.
-
-// app.get("/hello", function(req, res) {
-//     response_body = {'Hello': 'World'} ;
-
-//     // This example returns valid JSON in the response, but does not yet set the
-//     // associated HTTP response header.  This you should do yourself in your
-//     // own routes!
-//     res.json(response_body) ;
-// });
-
-
-
-// ###############################################################################
-// Some helper functions called above
 function my_database(filename) {
 	// Conncect to db by opening filename, create filename if it does not exist:
 	var db = new sqlite.Database(filename, (err) => {
