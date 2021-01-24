@@ -7,18 +7,6 @@
 //
 // This is a template for you to quickly get started with Assignment 3.
 // Read through the code and try to understand it.
-//
-// Have you read the zyBook chapter on Node.js?
-// Have you looked at the documentation of sqlite?
-// https://www.sqlitetutorial.net/sqlite-nodejs/
-//
-// Once you are familiar with Node.js and the assignment, start implementing
-// an API according to your design by adding routes.
-//
-// Make sure you have the required modules installed:
-//
-// shell> npm install sqlite3@5.0.0 express body-parser
-
 
 // ###############################################################################
 //
@@ -39,11 +27,13 @@ let db = my_database('./products.db');
 
 var express = require("express");
 var app = express();
+var bodyParser = require("body-parser");
 
 // We need some middleware to parse JSON data in the body of our HTTP requests:
-var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
-
 
 // ###############################################################################
 // Routes
@@ -64,33 +54,7 @@ app.use(bodyParser.json());
 //     res.json(response_body) ;
 // });
 
-// This route responds to http://localhost:3000/db-example by selecting some data from the
-// database and return it as JSON object.
-// Please test if this works on your own device before you make any changes.
-app.get('/db-example', function(req, res) {
-    // Example SQL statement to select the name of all products from a specific brand
-    db.all(`SELECT * FROM products WHERE product=?`, ['Apples'], function(err, rows) {
 
-    	// TODO: add code that checks for errors so you know what went wrong if anything went wrong
-    	// TODO: set the appropriate HTTP response headers and HTTP response codes here.
-
-    	// # Return db response as JSON
-    	return res.json(rows)
-    });
-});
-
-app.post('/post-example', function(req, res) {
-	// This is just to check if there is any data posted in the body of the HTTP request:
-	console.log(req.body);
-	return res.json(req.body);
-});
-
-
-// ###############################################################################
-// This should start the server, after the routes have been defined, at port 3000:
-
-app.listen(3000);
-console.log("Your Web server should be up and running, waiting for requests to come in. Try http://localhost:3000/db-example");
 
 // ###############################################################################
 // Some helper functions called above
@@ -126,69 +90,86 @@ function my_database(filename) {
 	return db;
 }
 
+// This route responds to http://localhost:3000/db-example by selecting some data from the
+// database and return it as JSON object.
+app.get("/products", function(req, res) {
+	// Example SQL statement to select the name of all products from a specific brand
+	// TODO: add code that checks for errors so you know what went wrong if anything went wrong
+    // TODO: set the appropriate HTTP response headers and HTTP response codes here.
+    db.all("SELECT * FROM products", function(err, rows) {
 
-	//Now the server is up and running and the table is ready with some sample database.
-	//We query the table to get a particular product based on the product_id using get.
-	app.get("/db-example/:id", (req, res, next) => {
-		var params = [req.params.id]
-		db.get(`SELECT * FROM products where product_id = ?`, [req.params.id], (err, row) => {
-			if (err) {
-			  res.status(400).json({"error":err.message});
-			  return;
-			}
-			res.status(200).json(row);
-		  });
-	});
-
-	//Insert new products using post
-	app.post("/insert-example/", (req, res, next) => {
-		var reqBody = re.body;
-		db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
-			[reqBody.products, reqBody.origin, reqBody.best_before_date, reqBody.amount, reqBody.image],
-			function (err, result) {
-				if (err) {
-					res.status(400).json({ "error": err.message })
-					return;
-				}
-				res.status(201).json({
-					"product_id": this.lastID
-				})
-			});
-	});
-	//Update DB 
-	app.patch("/update-example/:id", (req, res, next) => {
-		var data = {
-			product: req.body.product,
-			origin: req.body.origin,
-			best_before_date: req.body.best_before_date,
-			amount: req.body.amount,
-			image: req.body.image
-		}
-	db.run(
-        `UPDATE user set 
-           product = COALESCE(?,product), 
-           origin = COALESCE(?,origin), 
-		   best_before_date = COALESCE(?,best_before_date),
-		   amount = COALESCE(?,amount),
-		   image = COALESCE(?,image),
-           WHERE id = ?`,
-        [data.product, data.origin, data.best_before_date, data.amount,data.image,req.params.id],
-        (err, result)=> {
-            if (err){
-                res.status(400).json({"error": res.message})
+		    if (err) {
+                res.status(400).json({ "error": res.message })
                 return;
             }
-            res.json({
-                message: "success",
-                data: data,
-            })
+            res.status(200).json()
+    	// # Return db response as JSON
+    	return res.json(rows)
     });
-})
+});
 
-// Delete row by id function
-/*db.run(`DELETE FROM langs WHERE rowid=?`, id, function (err) {
-	if (err) {
-		return console.error(err.message);
-	}
-	console.log(`Row(s) deleted ${this.changes}`);
-});*/
+//Now the server is up and running and the table is ready with some sample database.
+//We query the table to get a particular product based on the product_id using get.
+app.get("/products/:id", (req, res, next) => {
+	db.get(`SELECT * FROM products WHERE id = ?`, [req.params.id], (err, row) => {
+		if (err) {
+			res.status(400).json({"error":err.message});
+			return;
+		}
+		res.status(200).json(row);
+	});
+});
+
+//INSERT new products using post
+app.post("/products/", (req, res, next) => {
+	var reqBody = req.body;
+	db.run(`INSERT INTO products (product, origin, best_before_date, amount, image) VALUES (?, ?, ?, ?, ?)`,
+		[reqBody.product, reqBody.origin, reqBody.best_before_date, reqBody.amount, reqBody.image],
+		(err, result) => {
+			if (err) {
+				res.status(400).json({ "error": err.message })
+				return;
+			}
+			res.status(201).json({
+				"product_id": this.lastID
+			})
+		});
+});
+
+//UPDATE products
+app.put("/products/:id", (req, res, next) => {
+	db.run(
+		`UPDATE products SET
+		product = ?, 
+		origin = ?, 
+		best_before_date = ?,
+		amount = ?,
+		image = ?
+		WHERE id = ?`,
+		[req.body.product, req.body.origin, req.body.best_before_date, req.body.amount, req.body.image, req.params.id],
+		(err, result) => {
+			if (err) {
+                res.status(400).json({ "error": res.message })
+                return;
+            }
+            res.status(200).json({ "product_id": req.params.id });
+		});
+});
+
+//DELETE from products
+app.delete("/products/:id", (req, res, next) => {
+	db.run(`DELETE FROM products WHERE id = ?`,
+        req.params.id,
+        function (err, result) {
+            if (err) {
+                res.status(400).json({ "error": res.message })
+                return;
+            }
+            res.status(200).json({ deleted_id: req.params.id })
+        });
+});
+
+// ###############################################################################
+// This should start the server, after the routes have been defined, at port 3000:
+
+app.listen(3000);
