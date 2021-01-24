@@ -190,8 +190,9 @@ app.patch("/update-example/:id", (req, res, next) => {
 			})
 		});
 })
-
-//delete DB row
+//##############################################################################
+//even zo apart gezet zodat het niet confusing wordt met de andere code
+//delete DB row 
 // app.delete('/delete-example'), function (err) {
 // 	app.get(db.all('DELETE FROM products WHERE id=?', [2], function (res, req) {
 // 		return res.json(req.body);
@@ -209,3 +210,4 @@ app.patch("/update-example/:id", (req, res, next) => {
 	}
 	console.log(`Row(s) deleted ${this.changes}`);
 });*/
+//###############################################################################
