@@ -98,21 +98,23 @@
         </section><br><br>
         <table id=productsTable>
             <thead>
+                
             <tr>
                 <th>Product</th>
                 <th>Image</th>
                 <th>Best Before </th>
                 <th>Amount</th>
                 <th>Origin</th>
+                <th>Edit</th>
             </tr>
             <tr>
                 <form id="addProductForm" action="" method="POST">
-                    <td><input id="product" type="text" name="product" required /></td> 
+                    <td><input id="product" type="text" name="product" required /></td> <td><input type="button" id="updateRow" name="UpdateRow"/></td>
                     <td><input id="image"  type="text" name="image" /></td> 
                     <td><input id="best_before_date" type="date"  name="best_before_date" required /></td>
                     <td><input id="amount" type="text" name="amount" required /></td> 
-                    <td>
-                        <input type="text" id="origin" name="origin" required />
+                    <td><input type="text" id="origin" name="origin" required />
+                    <td><input type="button" id="updateRow" name="UpdateRow"/></td>
                         <input type="submit" value="Send">
                     </td>                  
                 </form>   

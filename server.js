@@ -139,6 +139,14 @@ function my_database(filename) {
 // 		return header('HTTP/1.1 404 not found');
 // 	}
 // };
+
+// Delete row by id function
+/*db.run(`DELETE FROM langs WHERE rowid=?`, id, function (err) {
+	if (err) {
+		return console.error(err.message);
+	}
+	console.log(`Row(s) deleted ${this.changes}`);
+});*/
 	
 //Update DB 
 	app.patch("/update-example/:id", (req, res, next) => {
@@ -170,5 +178,37 @@ function my_database(filename) {
     });
 })
 
+
+
+	//Update DB 
+	app.patch("/update-example", (req, res, next) => {
+		var data = {
+			product: req.body.product,
+			origin: req.body.origin,
+			best_before_date: req.body.best_before_date,
+			amount: req.body.amount,
+			image: req.body.image,
+		}
+	db.run(
+        `UPDATE user set 
+           product = COALESCE(?,product), 
+           origin = COALESCE(?,origin), 
+		   best_before_date = COALESCE(?,best_before_date),
+		   amount = COALESCE(?,amount),
+		   image = COALESCE(?,image),
+           WHERE id = ?`,
+        [data.product, data.origin, data.best_before_date, data.amount,data.image,req.params.id],
+        function (err, result) {
+            if (err){
+                res.status(400).json({"error": res.message})
+                return;
+            }
+            res.json({
+                message: "success",
+                data: data,
+                changes: this.changes
+            })
+    });
+})
 
 
