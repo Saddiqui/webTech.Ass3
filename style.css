@@ -1,3 +1,4 @@
+
 body {
 margin: 0;
 font-family: Arial, Helvetica, sans-serif;
@@ -7,7 +8,7 @@ background-size: cover ;
 
 h1 {
   page-break-before: always;
-  color: rgb(12, 12, 12);
+  color: white
 }
 header {
   padding: 80px;
@@ -23,10 +24,8 @@ header {
   text-align: center;
   background-image: url("https://i.pinimg.com/originals/8f/4e/8a/8f4e8a77b57c243fa020207909ef377a.png");
 }
-.data_table h1{
-  color:black;
-}
-.data_table {
+
+#data_table {
   display: inline-block;
   overflow: hidden;
   text-align: center;
@@ -34,21 +33,21 @@ header {
   padding: 30px;
   width: 500px;
 }
-.data_table dt, .data_table dd {
+#data_table dt, #data_table dd {
   margin: 0;
   margin-bottom: 2px;
   display: inline;
 }
-.data_table dt {
+#data_table dt {
   padding-right: 8px;
   color:#f18071;
 }
-.data_table dd:after {
+#data_table dd:after {
   content: '';
   display: block;
 }
 @media (max-width: 600px){
-  .data_table {
+#data_table {
       text-align: center;
   }
 }
@@ -64,24 +63,24 @@ h4 {
   color: rgb(0, 0, 0);
 }
 
-a.alink:active{
+a#alink:active{
   background-color:rgba(243, 184, 184, 0.527) ;
 }
-a.unlink:link{
+a#unlink:link{
   color:rgb(0, 0, 0);
 }
-a.vislink{
+a#vislink{
 color:rosybrown;
 }
 /* Style the top navigation bar */
-.navbar {
+#navbar {
   overflow: hidden;
   background-color: white;
   background-image: url("https://i.pinimg.com/originals/8f/4e/8a/8f4e8a77b57c243fa020207909ef377a.png");
 }
 
 /* Style the navigation bar links */
-.navbar a {
+#navbar a {
   float: left;
   display: block;
   color: #f18071;
@@ -91,12 +90,12 @@ color:rosybrown;
 }
 
 /* Right-aligned link */
-.navbar a.right {
+#navbar a.right {
   float: right;
 }
 
 /* Change color on hover */
-.navbar a:hover {
+#navbar a:hover {
   background-color: #ddd;
   color: black;
 }
@@ -115,7 +114,8 @@ table {
   text-align: left;
   color: rgb(0, 0, 0);
   margin-left: auto;
-  margin-right: auto;}
+  margin-right: auto;
+}
 
 table tr:hover {
   background-color: rgba(243, 184, 184, 0.527);}
@@ -159,37 +159,6 @@ table th.sort{
   cursor: pointer;
 }
 
-p.firstpar {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  font-weight: normal;
-  font-style:initial;
-  text-transform:capitalize;
-  text-align: center;
-  widows: 5;
-  }
-p.secondpar{
-  font:caption Arial;
-  font-size: 15px;
-  font-weight: normal;
-  text-align:center;
-  font-variant: small-caps;
-}
-
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
-  .row {   
-    flex-direction: column;
-  }
-}
-
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
-}
 footer {
   page-break-after: always;
   bottom: 0;
@@ -236,10 +205,33 @@ ol.li{
 input:focus{
   background-color:#da716325;
 }
-article{
-  text-align: center;
-}
 
 #buttons{
   text-align: center;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+//* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .navbar a {
+    float: none;
+  }
+}
+@media (max-width: 600px){
+  .data_table {
+      text-align: center;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .left, .main, .right {
+    display: center;
+    width:100%; /* The width is 100%, when the viewport is 800px or smaller */
+  }
 }

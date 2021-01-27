@@ -1,130 +1,114 @@
 <!DOCTYPE html>
-<html>
-    <form action="https://wt.ops.labs.vu.nl/api21/807c5ce9" method="post"></form>
-
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Assignment 1: homepage of a webshop</title>
-                <link rel="stylesheet" href="style.css">
-                <script
-                    src="https://code.jquery.com/jquery-3.5.1.js"
-                    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-                    crossorigin="anonymous">
-                </script>
-                    <script src= 
-                    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
-                      </script> 
-                      <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-                <script type="text/javascript" src="index.js"></script>
-    </head>
-
-        <body>
-            <header>
-               <h1>Assignment 1: homepage of a webshop</h1>
-                <h2>Orders placed before 22:00, will be delivered the next day</h2>
-                </header>
-            <section>
-                <nav>
-                    <div class="navbar">
-                        <a href="#log in" id= "login" class="right">Log in</a>
-                        <a href="#home" id= "home">Home</a>
-                        <a href="#breads & dairy" id= "b&d">Breads & Dairy</a>
-                        <a href="#canned goods" id= "canned goods">Canned goods</a>
-                        <a href="#snacks" id= "snacks">Snacks</a>
-                        <a href="#beverages" id= "beverages">beverages</a>
-                        <a href="#freezer" id= "freezer">Freezer</a>
-                        <a href="#contact" id= "contact" class="right">Contact</a>
-                        <a href="#about us" id= "aboutUs" class="right">About us</a>
-                    </div>
-                </nav>
-            </section>
-            <a href="#alink" id="alink" class="alink">active link</a>
-            <a href="#unlink" id="unlink" class="unlink">unvisited link</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 1: homepage of a webshop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" media="print" href="print.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="functions.js"></script>
+</head>   
+<body>
+    <form action="https://wt.ops.labs.vu.nl/api21/807c5ce9" method="post">
+    </form>
+    <header>
+        <h1>Assignment 1: homepage of a webshop</h1>
+        <h2>Orders placed before 22:00, will be delivered the next day</h2>
+    </header>
+    <nav id= "navbar">
+            <a href="#login" id="login" class="right">Log in</a>
+            <a href="#home" id="home">Home</a>
+            <a href="#breads&dairy" id="b&d">Breads & Dairy</a>
+            <a href="#cannedGoods" id="cannedgoods">Canned goods</a>
+            <a href="#snacks" id="snacks">Snacks</a>
+            <a href="#beverages" id="beverages">beverages</a>
+            <a href="#freezer" id="freezer">Freezer</a>
+            <a href="#contact" id="contact" class="right">Contact</a>
+            <a href="#aboutUs" id="aboutUs" class="right">About us</a>
+    </nav>
+        <pre>
+        <i>These are links to other <abbr title="HyperText Markup Language">HTML</abbr> webpages:</i>
+        Active link: <a href="#alink" id="alink">active link</a>
+        Visited link: <a href="#vislink" id="vislink">visited link</a>
+        Unvisited link: <a href="#unlink" id="unlink">unvisited link</a>
+        </pre>
     
-
-
-            <section class="main">
-                <dl class="data_table">
-                <h1>Our top products</h1>
-                    <dt>Chocolate:</dt>
-                    <dd>Food made from cacao beans</dd>
-                
-                    <dt>Pasta:</dt>
-                    <dd>food typically made from an unleavened dough of wheat flour mixed with water or eggs, and formed into sheets or other shapes, then cooked by boiling or baking.</dd>
-                
-                    <dt>Sushi:</dt>
-                    <dd>popular Japanese dish made from seasoned rice with fish, egg, or vegetables.</dd>
-                </dl>
-                </section>
-        <section>
-        <!-- we purposely put the sort function on the first table, this way we want to show that we understand 
-        the learning goal. Also this shows the function in a quick way as there as already products in the table 
-        that are not sorted, so the sort function will be quicker to see on the webpage.-->    
-            <table id="bestsellersProducts"> 
-                <caption>Our best selling products in details:</caption>
-                <tr>
-                    <th class="sort"onclick="sortTable(0)">Product</th>
-                    <th>Image</th>
-                    <th>Best Before </th>
-                    <th>Amount</th>
-                    <th class ="sort" onclick="sortTable(1)">Origin</th>
-                </tr>
-                <tr>
-                    <td>Chocolate </td>
-                    <td><img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chocolate_%28blue_background%29.jpg" alt="Chocolate"></td>
-                    <td>01.06.2021</td>
-                    <td>100 gram</td>
-                    <td>Zwisterland</td>
-                    
-                </tr>
-                <tr>
-                    <td>Pasta</td>
-                    <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Pasta2.jpg" alt="Pasta"></td>
-                    <td>01.06.2021</td>
-                    <td>1 kg</td>
-                    <td>Italy</td>
-                    
-                </tr>
-                <tr>
-                    <td>Sushi</td>
-                    <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Large_plate_of_sushis_-_panoramio.jpg" alt="Sushi"></td>
-                    <td>01.06.2021</td>
-                    <td>1 kg</td>
-                    <td>Japan</td>
-                </tr>
-            </table>
-        </section>
-        <table id=productsTable>
-            <thead>
-                
+    <section class="main">
+        <h3>Our top products</h3>
+        <dl id="data_table">
+            <dt>Chocolate:</dt>
+                <dd>Food made from cacao beans</dd>
+            <dt>Pasta:</dt>
+                <dd>food typically made from an unleavened dough of wheat flour mixed with water or eggs, and formed into sheets or other shapes, then cooked by boiling or baking.</dd>
+            <dt>Sushi:</dt>
+                <dd>popular Japanese dish made from seasoned rice with fish, egg, or vegetables.</dd>
+        </dl>
+    </section>
+        
+<!-- we purposely put the sort function on the first table, this way we want to show that we understand 
+the learning goal. Also this shows the function in a quick way as there as already products in the table 
+that are not sorted, so the sort function will be quicker to see on the webpage.-->    
+    <table id="bestsellersProducts"> 
+        <caption>Our best selling products in details:</caption>
+            <tr>
+                <th class="sort" onclick="sortTable(0)">Product</th>
+                <th>Image</th>
+                <th>Best Before </th>
+                <th class="sort" onclick="sortTable(0)">Amount</th>
+                <th class ="sort" onclick="sortTable(1)">Origin</th>
+            </tr>
+            <tr>
+                <td>Chocolate </td>
+                <td><img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chocolate_%28blue_background%29.jpg" alt="Chocolate"></td>
+                <td>01.06.2021</td>
+                <td>100 gram</td>
+                <td>Zwisterland</td>
+            </tr>
+            <tr>
+                <td>Pasta</td>
+                <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Pasta2.jpg" alt="Pasta"></td>
+                <td>01.06.2021</td>
+                <td>1 kg</td>
+                <td>Italy</td>
+            </tr>
+            <tr>
+                <td>Sushi</td>
+                <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Large_plate_of_sushis_-_panoramio.jpg" alt="Sushi"></td>
+                <td>01.06.2021</td>
+                <td>0.5 kg</td>
+                <td>Japan</td>
+            </tr>
+    </table>
+        
+    <table id=productsTable>
+        <thead>
             <tr>
                 <th>Product</th>
                 <th>Image</th>
                 <th>Best Before </th>
                 <th>Amount</th>
                 <th>Origin</th>
-                <th>Edit</th>
             </tr>
             <tr>
                 <form id="addProductForm" action="" method="POST">
-                    <td><input id="product" type="text" name="product" required /></td> <td><input type="button" id="updateRow" name="UpdateRow"/></td>
-                    <td><input id="image"  type="text" name="image" /></td> 
-                    <td><input id="best_before_date" type="date"  name="best_before_date" required /></td>
-                    <td><input id="amount" type="text" name="amount" required /></td> 
-                    <td><input type="text" id="origin" name="origin" required />
-                    <td><input type="button" id="updateRow" name="UpdateRow"/></td>
-                        <input type="submit" value="Send">
-                    </td>                  
-                </form>   
+                <td><input id="product" type="text" name="product" required />*(required)</td> 
+                <td><input id="image"  type="text" name="image" /> (optional)</td> 
+                <td><input id="best_before_date" type="date"  name="best_before_date" required />*(required)</td>
+                <td><input id="amount" type="text" name="amount" required />*(required)</td> 
+                <td><input type="text" id="origin" name="origin" required />*(required)
+                    <input type="submit" value="Send"> </td>                  
+                </form> 
             </tr>  
-            </thead>
-            <tbody id="productsTableBody">
-            </tbody>
-        </table> 
-        <figure id = "buttons"><input id="resetButton" type="button" value="Reset table" /></figure>
+        </thead>
+        <tbody id="productsTableBody"></tbody>
+    </table> 
+    <figure id = "buttons"><input id="resetButton" type="button" value="Reset table" /></figure>
 
-
-
-<footer><pre>Assignment1| Group 47 | Alina saddiqui | Emily Zwueste | Web Technology | X_400488</pre></footer>
-  </body>    
+    <footer>Assignment1 | Group 47 | Alina saddiqui | Emily Zwueste | Web Technology | X_400488</footer>
+</body>    
 </html>
