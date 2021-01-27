@@ -8,13 +8,13 @@ background-size: cover ;
 
 h1 {
   page-break-before: always;
-  color: white
+  color: rgb(97, 92, 92);
 }
 header {
   padding: 80px;
   text-align: center;
   background: #f18071;
-  color: white;
+  color: rgb(97, 92, 92);
 }
 .main {   
   -ms-flex: 70%;
